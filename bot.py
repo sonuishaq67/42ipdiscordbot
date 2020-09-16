@@ -2,6 +2,8 @@ import os
 import random
 import discord
 from dotenv import load_dotenv
+import requests
+import json
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -25,7 +27,7 @@ async def on_message(message):
         msg = "Hello @everyone I am 42ip's bot"
         await channel.send(f'{msg}')
     elif "twss" in message.content:
-        i = random.randint(0,1)
+        i = random.randint(0, 1)
         await channel.send(file=discord.File(f'assets/twss{i}.gif'))
     elif "noice" in message.content:
         await channel.send(file=discord.File('assets/tenor.gif'))
@@ -42,6 +44,20 @@ async def on_message(message):
                    "Nah man you beautiful", "Yes.", "What if I told no"]
         n = random.randint(0, len(replies)-1)
         await channel.send(f'{replies[n]}')
+    elif "tell me a joke" in message.content.lower():
+        n = random.randint(0, 2)
+        if n == 2:
+            response = requests.get(
+                "https://official-joke-api.appspot.com/random_joke")
+            joke = response.json()
+            await channel.send('Here\'s a joke for you')
+            # await channel.send(f'{joke}')
+            await channel.send(f'{str(joke["setup"])}')
+            await channel.send(f'{str(joke["punchline"])}')
+        elif n == 1:
+            await channel.send('Your life')
+        else:
+            await channel.send('Sorry I cant open your front camera yet')
 
 
 @client.event
