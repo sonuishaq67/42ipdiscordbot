@@ -24,10 +24,13 @@ async def on_message(message):
     elif "introduce yourself" in message.content:
         msg = "Hello @everyone I am 42ip's bot"
         await channel.send(f'{msg}')
+    elif "twss" in message.content:
+        i = random.randint(0,1)
+        await channel.send(file=discord.File(f'assets/twss{i}.gif'))
     elif "noice" in message.content:
-        await channel.send(file=discord.File('tenor.gif'))
+        await channel.send(file=discord.File('assets/tenor.gif'))
     elif "i love democracy" in message.content:
-        await channel.send(file=discord.File('democracy.gif'))
+        await channel.send(file=discord.File('assets/democracy.gif'))
     elif "can you reply to yourself" in message.content:
         msg = 'yes i can'
         await channel.send(f'{msg}')
