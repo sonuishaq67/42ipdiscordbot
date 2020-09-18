@@ -21,6 +21,8 @@ async def on_message(message):
     if "what can you do" in message.content:
         msg = 'For now only 4-5 tasks {0.author.mention}'.format(message)
         await channel.send(f'{msg}')
+    elif "yoo" in message.content.lower():
+        await channel.send('wassup man')
     elif "hi bot" in message.content:
         await channel.send('Hey man {0.author.mention}'.format(message))
     elif "introduce yourself" in message.content:
