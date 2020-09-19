@@ -41,6 +41,9 @@ async def on_message(message):
     elif "yes i can" in message.content:
         msg = "oh can you reply to yourself"
         await channel.send(f'{msg}')
+    elif "toyst" in message.content.lower():
+        msg = "https://media1.tenor.com/images/2fb6b048517ffc9492dfea5766d3835d/tenor.gif"
+        await channel.send(f'{msg}')
     elif "am i ugly" in message.content.lower():
         replies = ["It runs in your fam bitch",
                    "Nah man you beautiful", "Yes.", "What if I told no"]
