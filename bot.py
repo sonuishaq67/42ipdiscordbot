@@ -23,7 +23,7 @@ async def on_message(message):
         await channel.send(f'{msg}')
     elif "yoo" in message.content.lower():
         await channel.send('wassup man')
-    elif "fuck" in message.content.lower() or "wtf" in message.content.lower() or "fuck this" in message.content.lower():
+    elif "fuck" in message.content.lower() or "tf" in message.content.lower() or "cringe" in message.content.lower() or "eww" in message.content.lower():
         with open('bleach.txt') as b:
             a = b.readlines()
             await channel.send(f"{random.choice(a)}")
