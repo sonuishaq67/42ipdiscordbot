@@ -4,6 +4,7 @@ import discord
 from dotenv import load_dotenv
 import requests
 import json
+import re
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -26,7 +27,10 @@ async def on_message(message):
     elif "fuck" in message.content.lower() or "tf" in message.content.lower() or "cringe" in message.content.lower() or "eww" in message.content.lower():
         with open('bleach.txt') as b:
             a = b.readlines()
-            await channel.send(f"{random.choice(a)}")
+            msg=random.choice(a)
+            result = re.search(r"\[([A-Za-z0-9_]+)\]", str(msg))
+            print(result)
+            await channel.send(f"{msg}")
     elif "hi bot" in message.content:
         await channel.send('Hey man {0.author.mention}'.format(message))
     elif "introduce yourself" in message.content:
