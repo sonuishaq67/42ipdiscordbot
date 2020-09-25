@@ -72,7 +72,7 @@ async def on_message(message):
         else:
             await channel.send('Sorry I cant open your front camera yet')
     elif "r! meme" in message.content.lower():
-        subreds = ["memes","dankmemes","programmerhumor"]
+        subreds = ["memes","dankmemes","programmerhumor","boneappletea","funny","holup","linuxmemes","linuxmasterrace"]
         n = subreds[random.randint(0,len(subreds)-1)]
         response = requests.get(f"https://meme-api.herokuapp.com/gimme/{n}")
         meme = response.json()
