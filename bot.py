@@ -74,9 +74,10 @@ async def on_message(message):
     elif "r! meme" in message.content.lower():
         subreds = ["memes","dankmemes","programmerhumor"]
         n = subreds[random.randint(0,len(subreds)-1)]
-        response = requests.get("https://meme-api.herokuapp.com/gimme/{n}")
+        response = requests.get(f"https://meme-api.herokuapp.com/gimme/{n}")
         meme = response.json()
-        await channel.send(f'{str(meme["title"])}')
+        print(meme)
+        await channel.send(f'**{str(meme["title"])}**')
         await channel.send(f'{str(meme["url"])}')
 
 
