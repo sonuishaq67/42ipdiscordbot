@@ -71,6 +71,13 @@ async def on_message(message):
             await channel.send('Your life')
         else:
             await channel.send('Sorry I cant open your front camera yet')
+    elif "r! meme" in message.content.lower():
+        subreds = ["memes","dankmemes","programmerhumor"]
+        n = subreds[random.randint(0,len(subreds)-1)]
+        response = requests.get("https://meme-api.herokuapp.com/gimme/{n}")
+        meme = response.json()
+        await channel.send(f'{str(meme["title"])}')
+        await channel.send(f'{str(meme["url"])}')
 
 
 @client.event
