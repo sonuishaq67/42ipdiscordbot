@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 import requests
 import json
 import re
-
+import sys
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 
@@ -24,6 +24,9 @@ async def on_message(message):
         await channel.send(f'{msg}')
     elif "yoo" in message.content.lower():
         await channel.send('wassup man')
+    elif "stfu bot" in message.content.lower():
+        await channel.send('ok')
+        sys.exit()
     elif "fuck" in message.content.lower() or "tf" in message.content.lower() or "cringe" in message.content.lower() or "eww" in message.content.lower():
         with open('bleach.txt') as b:
             a = b.readlines()
