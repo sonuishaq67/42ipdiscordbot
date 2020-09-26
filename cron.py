@@ -17,7 +17,7 @@ async def on_ready():
     print(client.user.id)
     print('------')
     channel = client.get_channel(744840774759481345)
-    subreds = ["memes","dankmemes","programmerhumor","boneappletea","funny"]
+    subreds = ["memes","dankmemes","programmerhumor","funny"]
     n = subreds[random.randint(0,len(subreds)-1)]
     response = requests.get(f"https://meme-api.herokuapp.com/gimme/{n}")
     meme = response.json()
