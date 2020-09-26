@@ -19,7 +19,7 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    if "what can you do" in message.content:
+    if "what can you do" in message.content.lower():
         msg = 'For now only 4-5 tasks {0.author.mention}'.format(message)
         await channel.send(f'{msg}')
     elif "yoo" in message.content.lower():
@@ -31,7 +31,7 @@ async def on_message(message):
             result = re.search(r"\[([A-Za-z0-9_]+)\]", str(msg))
             print(result)
             await channel.send(f"{msg}")
-    elif "hi bot" in message.content:
+    elif "hi bot" in message.content.lower():
         await channel.send('Hey man {0.author.mention}'.format(message))
     elif "introduce yourself" in message.content:
         msg = "Hello @everyone I am 42ip's bot"
@@ -77,7 +77,7 @@ async def on_message(message):
         response = requests.get(f"https://meme-api.herokuapp.com/gimme/{n}")
         meme = response.json()
         print(meme)
-        await channel.send(f'**{str(meme["title"])}**')
+        await channel.send(f'**{str(meme["title"])}** from *{str(meme["subreddit"])}*')
         await channel.send(f'{str(meme["url"])}')
 
 
