@@ -103,6 +103,7 @@ celerybeat.pid
 
 # Environments
 .env
+nohup.out
 .venv
 env/
 venv/
