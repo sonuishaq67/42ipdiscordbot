@@ -37,7 +37,7 @@ async def on_message(message):
             await channel.send(f"{msg}")
     elif "hi bot" in message.content.lower():
         await channel.send('Hey man {0.author.mention}'.format(message))
-    elif "introduce yourself" in message.content:
+    elif "bot introduce yourself" in message.content:
         msg = "Hello @everyone I am 42ip's bot"
         await channel.send(f'{msg}')
     elif "twss" in message.content:
@@ -84,13 +84,6 @@ async def on_message(message):
         await channel.send(f'**{str(meme["title"])}** from *{str(meme["subreddit"])}*')
         await channel.send(f'{str(meme["url"])}')
 
-
-@client.event
-async def on_member_join(client, *, member):
-    channel = client.get_channel(714036401334911036)
-    time.sleep(600)
-    fmt = '@everyone {member.name} is here!'
-    await channel.send(f'{fmt}')
 
 
 @client.event
