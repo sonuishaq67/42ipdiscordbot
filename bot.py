@@ -6,6 +6,7 @@ import requests
 import json
 import re
 import sys
+import time
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 
@@ -82,6 +83,14 @@ async def on_message(message):
         print(meme)
         await channel.send(f'**{str(meme["title"])}** from *{str(meme["subreddit"])}*')
         await channel.send(f'{str(meme["url"])}')
+
+
+@client.event
+async def on_member_join(client, *, member):
+    channel = client.get_channel(714036401334911036)
+    time.sleep(600)
+    fmt = '@everyone {member.name} is here!'
+    await channel.send(f'{fmt}')
 
 
 @client.event
