@@ -28,7 +28,7 @@ async def on_message(message):
     elif "stfu bot" in message.content.lower():
         await channel.send('ok')
         sys.exit()
-    elif "fuck" in message.content.lower() or "tf" in message.content.lower() or "cringe" in message.content.lower() or "eww" in message.content.lower():
+    elif "/fuck" in message.content.lower() or "/tf" in message.content.lower() or "/cringe" in message.content.lower() or "/eww" in message.content.lower():
         with open('bleach.txt') as b:
             a = b.readlines()
             msg=random.choice(a)
@@ -43,7 +43,7 @@ async def on_message(message):
     elif "twss" in message.content:
         i = random.randint(0, 1)
         await channel.send(file=discord.File(f'assets/twss{i}.gif'))
-    elif "noice" in message.content:
+    elif "/noice" in message.content:
         await channel.send(file=discord.File('assets/tenor.gif'))
     elif "i love democracy" in message.content:
         await channel.send(file=discord.File('assets/democracy.gif'))
