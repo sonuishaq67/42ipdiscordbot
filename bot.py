@@ -3,11 +3,11 @@ import os
 import random
 import discord
 from dotenv import load_dotenv
-import requests
 import json
 import re
 import sys
 import time
+import aiohttp
 # custom tools imports 
 from tools.bleach import get_bleach
 
@@ -16,6 +16,10 @@ load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 client = discord.Client()
 
+async def fetch_data(url):
+    async with aiohttp.ClientSession() as cs:
+        async with cs.get(url) as r:
+            return await r.json()
 
 client.event
 async def on_ready():
@@ -109,9 +113,7 @@ async def on_message(message):
     elif "tell me a joke" in message.content.lower():
         n = random.randint(0, 2)
         if n == 2:
-            response = requests.get(
-                "https://official-joke-api.appspot.com/random_joke")
-            joke = response.json()
+            joke = await fetch_data("https://official-joke-api.appspot.com/random_joke")
             await channel.send('Here\'s a joke for you')
             # await channel.send(f'{joke}')
             await channel.send(f'{str(joke["setup"])}')
@@ -127,7 +129,7 @@ async def on_message(message):
         subreds = ["memes","dankmemes","programmerhumor","boneappletea","funny","cursedcomments","linuxmemes","interestingasfuck","murderedbywords"]
         n = subreds[random.randint(0,len(subreds)-1)]
         # get the meme
-        response = requests.get(f"https://meme-api.herokuapp.com/gimme/{n}")
+        response = await fetch_data(f"https://meme-api.herokuapp.com/gimme/{n}")
         meme = response.json()
         print(meme)
         await channel.send(f'**{str(meme["title"])}** from *{str(meme["subreddit"])}*')
