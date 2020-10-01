@@ -129,8 +129,7 @@ async def on_message(message):
         subreds = ["memes","dankmemes","programmerhumor","boneappletea","funny","cursedcomments","linuxmemes","interestingasfuck","murderedbywords"]
         n = subreds[random.randint(0,len(subreds)-1)]
         # get the meme
-        response = await fetch_data(f"https://meme-api.herokuapp.com/gimme/{n}")
-        meme = response.json()
+        meme = await fetch_data(f"https://meme-api.herokuapp.com/gimme/{n}")
         print(meme)
         await channel.send(f'**{str(meme["title"])}** from *{str(meme["subreddit"])}*')
         await channel.send(f'{str(meme["url"])}')
