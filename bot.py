@@ -73,7 +73,7 @@ async def on_message(message):
 
     elif ("/fuck" in message.content.lower()) or ("/tf" in message.content.lower()) or ("/cringe" in message.content.lower()) or ("/eww" in message.content.lower()):
         # open the bleach.txt file
-        await channel.send(f"{get_bleach('../bleach.txt')}")
+        await channel.send(f"{get_bleach('bleach.txt')}")
 
     elif "hi bot" in message.content.lower():
         await channel.send('Hey man {0.author.mention}'.format(message))
