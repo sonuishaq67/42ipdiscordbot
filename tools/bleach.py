@@ -13,4 +13,3 @@ def get_bleach(r: str):
 		
 		except:
 			return 'Error in the get_bleach() function'
-	
