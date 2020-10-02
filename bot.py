@@ -21,7 +21,7 @@ async def fetch_data(url):
         async with cs.get(url) as r:
             return await r.json()
 
-client.event
+@client.event
 async def on_ready():
 
     """
