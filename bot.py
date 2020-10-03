@@ -47,7 +47,7 @@ async def on_ready():
     print('\nDiscord.py version: {}'.format(discord.__version__))
     #liks
     INVITE = 'PUT HERE THE LINK TO INVITE THE BOT'
-    print('\nUse this link to invite {}:'.format(bot.user.name))
+    print('\nUse this link to invite {}:'.format(client.user.name))
     print(INVITE)
     REPO = 'https://github.com/sonuishaq67/42ipdiscordbot'
     print('\nGitHub repository: {}'.format(REPO))
