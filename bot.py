@@ -134,7 +134,8 @@ async def on_message(message):
             await channel.send('Sorry I cant open your front camera yet')
     elif "~ping" in message.content.lower():
         await channel.send('~pong')
-        ping =os.system("ping -c 1 google.com")
+        pingfile =os.system("ping -c 1 google.com 1> ping")
+        ping = os.system("cat ping")
         await channel.send(f'{ping}')
         
     elif "r! meme" in message.content.lower():
