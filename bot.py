@@ -8,7 +8,7 @@ import re
 import sys
 import time
 import aiohttp
-# custom tools imports 
+# custom tools imports
 from tools.bleach import get_bleach
 
 # create the token using the os.getenv function and the client using the discord.Client() class
@@ -16,10 +16,12 @@ load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 client = discord.Client()
 
+
 async def fetch_data(url):
     async with aiohttp.ClientSession() as cs:
         async with cs.get(url) as r:
             return await r.json()
+
 
 @client.event
 async def on_ready():
@@ -41,11 +43,11 @@ async def on_ready():
 
     # bot log in information
     print('\nLogged in as {}, id: {} | Servers: {} | Users: {}'.format(client.user.name,
-                                                                     client.user.id,
-                                                                     len(client.guilds),
-                                                                     len(set(client.get_all_members()))) + ' users')    # bot python information
+                                                                       client.user.id,
+                                                                       len(client.guilds),
+                                                                       len(set(client.get_all_members()))) + ' users')    # bot python information
     print('\nDiscord.py version: {}'.format(discord.__version__))
-    #liks
+    # liks
     INVITE = 'PUT HERE THE LINK TO INVITE THE BOT'
     print('\nUse this link to invite {}:'.format(client.user.name))
     print(INVITE)
@@ -53,6 +55,7 @@ async def on_ready():
     print('\nGitHub repository: {}'.format(REPO))
     # Setting `Listening ` status
     await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="you all :)"))
+
 
 @client.event
 async def on_message(message):
@@ -62,7 +65,8 @@ async def on_message(message):
     """
     # get the channel of the bot and exit the event if the message was from the bot
     channel = client.get_channel(message.channel.id)
-    if message.author == client.user: return
+    if message.author == client.user:
+        return
 
     # proccess every message
     if "what can you do" in message.content.lower():
@@ -73,8 +77,12 @@ async def on_message(message):
 
     elif "stfu bot" in message.content.lower():
         await channel.send('ok')
-        sys.exit() # turn off the bot
-
+        sys.exit()  # turn off the bot
+    elif "~latency" in message.content.lower():
+        lat = await channel.send("checking...")
+        print(message)
+        print(lat)
+        await channel.send(f"Latency: {lat.id - message.id} ms.")
     elif ("/fuck" in message.content.lower()) or ("/tf" in message.content.lower()) or ("/cringe" in message.content.lower()) or ("/eww" in message.content.lower()):
         # open the bleach.txt file
         await channel.send(f"{get_bleach('bleach.txt')}")
@@ -124,10 +132,15 @@ async def on_message(message):
 
         else:
             await channel.send('Sorry I cant open your front camera yet')
-
+    elif "~ping" in message.content.lower():
+        await channel.send('~pong')
+        ping =os.system("ping -c 1 google.com")
+        await channel.send(f'{ping}')
+        
     elif "r! meme" in message.content.lower():
-        subreds = ["memes","dankmemes","programmerhumor","boneappletea","funny","cursedcomments","linuxmemes","interestingasfuck","murderedbywords"]
-        n = subreds[random.randint(0,len(subreds)-1)]
+        subreds = ["memes", "dankmemes", "programmerhumor", "boneappletea", "funny",
+                   "cursedcomments", "linuxmemes", "interestingasfuck", "murderedbywords"]
+        n = subreds[random.randint(0, len(subreds)-1)]
         # get the meme
         meme = await fetch_data(f"https://meme-api.herokuapp.com/gimme/{n}")
         print(meme)
