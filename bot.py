@@ -1,3 +1,4 @@
+#! /usr/bin/env python3
 # Python Package imports
 import os
 import random
@@ -15,7 +16,6 @@ from tools.bleach import get_bleach
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 client = discord.Client()
-
 
 async def fetch_data(url):
     async with aiohttp.ClientSession() as cs:
@@ -133,10 +133,7 @@ async def on_message(message):
         else:
             await channel.send('Sorry I cant open your front camera yet')
     elif "~ping" in message.content.lower():
-        await channel.send('~pong')
-        pingfile =os.system("ping -c 1 google.com 1> ping")
-        ping = os.system("cat ping")
-        await channel.send(f'{ping}')
+        await channel.send(f'{os.system("ping google.com -c 1")}')
         
     elif "r! meme" in message.content.lower():
         subreds = ["memes", "dankmemes", "programmerhumor", "boneappletea", "funny",
@@ -149,4 +146,5 @@ async def on_message(message):
         await channel.send(f'{str(meme["url"])}')
 
 if __name__ == '__main__':
+    sys.stdout.flush()
     client.run(TOKEN)
