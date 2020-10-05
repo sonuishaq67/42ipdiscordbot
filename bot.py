@@ -9,6 +9,8 @@ import re
 import sys
 import time
 import aiohttp
+import time
+import calendar
 # custom tools imports
 from tools.bleach import get_bleach
 
@@ -26,6 +28,9 @@ def nonblank_lines(f):
         line = l.rstrip()
         if line:
             yield line
+def sf2utcms(sf):
+    return ((sf >> 22) + 1288834974657)
+
 
 @client.event
 async def on_ready():
@@ -84,9 +89,9 @@ async def on_message(message):
         sys.exit()  # turn off the bot
     elif "~latency" in message.content.lower():
         lat = await channel.send("checking...")
-        print(message)
-        print(lat)
-        await channel.send(f"Latency: {lat.id - message.id} ms.")
+        latutc=sf2utcms(lat.id)
+        msutc=sf2utcms(message.id)
+        await channel.send(f"Latency: {latutc-msutc} ms.")
     elif ("/fuck" in message.content.lower()) or ("/tf" in message.content.lower()) or ("/cringe" in message.content.lower()) or ("/eww" in message.content.lower()):
         # open the bleach.txt file
         await channel.send(f"{get_bleach('bleach.txt')}")
