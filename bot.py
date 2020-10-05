@@ -21,7 +21,11 @@ async def fetch_data(url):
     async with aiohttp.ClientSession() as cs:
         async with cs.get(url) as r:
             return await r.json()
-
+def nonblank_lines(f):
+    for l in f:
+        line = l.rstrip()
+        if line:
+            yield line
 
 @client.event
 async def on_ready():
@@ -52,7 +56,7 @@ async def on_ready():
     print('\nUse this link to invite {}:'.format(client.user.name))
     print(INVITE)
     REPO = 'https://github.com/sonuishaq67/42ipdiscordbot'
-    print('\nGitHub repository: {}'.format(REPO))
+    print('\nGitHub repository: {}'.format(str(REPO)))
     # Setting `Listening ` status
     await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="you all :)"))
 
@@ -135,9 +139,8 @@ async def on_message(message):
     elif "~ping" in message.content.lower():
         os.system("ping google.com -c 1 1>ping")
         with open('ping') as pingfile:
-            a = pingfile.readlines()
-        for b in a:
-            await channel.send(f'{b}')    
+            for line in nonblank_lines(pingfile):
+                await channel.send(f'{line}')
     elif "r! meme" in message.content.lower():
         subreds = ["memes", "dankmemes", "programmerhumor", "boneappletea", "funny",
                    "cursedcomments", "linuxmemes", "interestingasfuck", "murderedbywords"]
