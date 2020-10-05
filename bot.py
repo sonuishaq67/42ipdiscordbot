@@ -25,7 +25,7 @@ async def fetch_data(url):
 
 @client.event
 async def on_ready():
-
+    sys.stdout.flush()
     """
     This function will start once the bot is ready, using the client.event decorator
     and the on_ready() function. 
@@ -133,8 +133,11 @@ async def on_message(message):
         else:
             await channel.send('Sorry I cant open your front camera yet')
     elif "~ping" in message.content.lower():
-        await channel.send(f'{os.system("ping google.com -c 1")}')
-        
+        os.system("ping google.com -c 1 1>ping")
+        with open('ping') as pingfile:
+            a = pingfile.readlines()
+        for b in a:
+            await channel.send(f'{b}')    
     elif "r! meme" in message.content.lower():
         subreds = ["memes", "dankmemes", "programmerhumor", "boneappletea", "funny",
                    "cursedcomments", "linuxmemes", "interestingasfuck", "murderedbywords"]
