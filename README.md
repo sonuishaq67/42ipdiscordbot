@@ -7,5 +7,7 @@ setting up
 
 ```pip3 install -U python-dotenv```
 
-
+get a discord bot token 
 [docs](https://discordpy.readthedocs.io/en/latest/)
+
+
