@@ -2,19 +2,20 @@
 
 # to check every 15 minutes for a new version in git
 
-MAILFILE = ~/TARS/mail.log
+MAILFILE=~/TARS/mail.log
 git pull &>.pull
-c1 = cat .pull | grep "up to date" | wc -l
-c2 = cat .pull | grep "files changed" | wc -l
-c3 = cat .pull | grep "Aborting" | wc -l
-if [$c1 -gt 0]; then
+c1=$(cat .pull | grep "up to date" | wc -l)
+c2=$(cat .pull | grep "files changed" | wc -l)
+c3=$(cat .pull | grep "Aborting" | wc -l)
+if [ "$c1" -gt 0 ]; then
+    echo "already upto date"
     exit
-elif [$c2 -gt 0]; then
+elif [ "$c2" -gt 0 ]; then
     stop_process
     run_again
     echo -e "Subject: Rerun TARS @ $(date)\nTo: ishaqshaik084@gmail.com" >$MAILFILE
     send_mail
-elif [$c3 -gt 0]; then
+elif [ "$c3" -gt 0 ]; then
     echo -e "Subject: Theres a pulling error for TARS @ $(date)\nTo: ishaqshaik084@gmail.com" >$MAILFILE
     send_mail
 fi
@@ -31,6 +32,6 @@ run_again() {
 }
 
 send_mail() {
-    cat ~/TARS/.pull >> $MAILFILE
+    cat ~/TARS/.pull >>$MAILFILE
     cat $MAILFILE | /usr/sbin/ssmtp ishaqshaik084@gmail.com
 }
