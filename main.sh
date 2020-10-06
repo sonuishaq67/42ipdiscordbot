@@ -1,4 +1,9 @@
 #!/bin/bash
+
+# to check every 15 minutes for a new version in git
+
+MAILFILE=~/TARS/mail.log
+git pull &>.pull
 stop_process() {
     process_id=$(ps -ef | grep "bot.py" | cut -b 12-16 | head -n 1)
     kill -9 $process_id
@@ -14,11 +19,6 @@ send_mail() {
     cat ~/TARS/.pull >>$MAILFILE
     cat $MAILFILE | /usr/sbin/ssmtp ishaqshaik084@gmail.com
 }
-
-# to check every 15 minutes for a new version in git
-
-MAILFILE=~/TARS/mail.log
-git pull &>.pull
 c1=$(cat .pull | grep "up to date" | wc -l)
 c2=$(cat .pull | grep "files changed" | wc -l)
 c3=$(cat .pull | grep "Aborting" | wc -l)
