@@ -20,7 +20,7 @@ send_mail() {
     cat $MAILFILE | /usr/sbin/ssmtp ishaqshaik084@gmail.com
 }
 c1=$(cat .pull | grep "up to date" | wc -l)
-c2=$(cat .pull | grep "insertions" | wc -l)
+c2=$(cat .pull | grep "insertion" | wc -l)
 c3=$(cat .pull | grep "Aborting" | wc -l)
 if [ "$c1" -gt 0 ]; then
     echo "already upto date"
