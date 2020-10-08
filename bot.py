@@ -111,6 +111,11 @@ async def on_message(message):
     elif "/noice" in message.content:
         await channel.send(file=discord.File('assets/tenor.gif'))
 
+    elif message.content.startswith('http/'):
+        url = message.content
+        url = url[-3:]
+        await channel.send(f"https://http.cat/{url}")
+
     elif "i love democracy" in message.content:
         await channel.send(file=discord.File('assets/democracy.gif'))
 
