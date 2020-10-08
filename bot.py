@@ -19,15 +19,20 @@ load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 client = discord.Client()
 
+
 async def fetch_data(url):
     async with aiohttp.ClientSession() as cs:
         async with cs.get(url) as r:
             return await r.json()
+
+
 def nonblank_lines(f):
     for l in f:
         line = l.rstrip()
         if line:
             yield line
+
+
 def sf2utcms(sf):
     return ((sf >> 22) + 1288834974657)
 
@@ -76,7 +81,8 @@ async def on_message(message):
     channel = client.get_channel(message.channel.id)
     if message.author == client.user:
         return
-
+    print(message)
+    print(message.content)
     # proccess every message
     if "what can you do" in message.content.lower():
         await channel.send('For now only 4-5 tasks {0.author.mention}'.format(message))
@@ -84,13 +90,10 @@ async def on_message(message):
     elif "yoo" in message.content.lower():
         await channel.send('wassup man')
 
-    elif "stfu bot" in message.content.lower():
-        await channel.send('ok')
-        sys.exit()  # turn off the bot
     elif "~latency" in message.content.lower():
         lat = await channel.send("checking...")
-        latutc=sf2utcms(lat.id)
-        msutc=sf2utcms(message.id)
+        latutc = sf2utcms(lat.id)
+        msutc = sf2utcms(message.id)
         await channel.send(f"Latency: {latutc-msutc} ms.")
     elif ("/fuck" in message.content.lower()) or ("/tf" in message.content.lower()) or ("/cringe" in message.content.lower()) or ("/eww" in message.content.lower()):
         # open the bleach.txt file
@@ -110,12 +113,6 @@ async def on_message(message):
 
     elif "i love democracy" in message.content:
         await channel.send(file=discord.File('assets/democracy.gif'))
-
-    elif "can you reply to yourself" in message.content:
-        await channel.send("yes, I can")
-
-    elif "yes i can" in message.content:
-        await channel.send("oh can you reply to yourself")
 
     elif "toyst" in message.content.lower():
         await channel.send("https://media1.tenor.com/images/2fb6b048517ffc9492dfea5766d3835d/tenor.gif")
