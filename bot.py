@@ -113,7 +113,7 @@ async def on_message(message):
 
     elif message.content.startswith('http/'):
         url = message.content
-        url = url[-3:]
+        url = url[5:8]
         await channel.send(f"https://http.cat/{url}")
 
     elif "i love democracy" in message.content:
