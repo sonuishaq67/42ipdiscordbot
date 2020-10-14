@@ -68,7 +68,7 @@ async def on_ready():
     REPO = 'https://github.com/sonuishaq67/42ipdiscordbot'
     print('\nGitHub repository: {}'.format(str(REPO)))
     # Setting `Listening ` status
-    await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=f"{len(client.guilds)} server and {len(set(client.get_all_members()))} people"))
+    await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=f"{len(set(client.get_all_members()))} people"))
 
 
 @client.event
