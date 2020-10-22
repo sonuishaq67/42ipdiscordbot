@@ -11,6 +11,7 @@ import time
 import aiohttp
 import time
 import calendar
+import requests
 # custom tools imports
 from tools.bleach import get_bleach
 
@@ -87,8 +88,14 @@ async def on_message(message):
     if "what can you do" in message.content.lower():
         await channel.send('For now only 4-5 tasks {0.author.mention}'.format(message))
 
-    elif "yoo" in message.content.lower():
-        await channel.send('wassup man')
+    elif message.content.startswith("/doge"):
+        api_url="http://shibe.online/api/shibes?count=1"
+        response=await fetch_data(api_url)
+        embed=discord.Embed(
+            title=f"doge for {message.name}",
+        )
+        embed.set_image(url=f"{response[0]}")
+        await channel.send(embed=embed)
 
     elif "~latency" in message.content.lower():
         lat = await channel.send("checking...")
@@ -97,7 +104,7 @@ async def on_message(message):
         await channel.send(f"Latency: {latutc-msutc} ms.")
     elif ("/fuck" in message.content.lower()) or ("/tf" in message.content.lower()) or ("/cringe" in message.content.lower()) or ("/eww" in message.content.lower()):
         # open the bleach.txt file
-        await channel.send(f"{get_bleach('bleach.txt')}")
+        await channel.send(url=f"{get_bleach('bleach.txt')}")
 
     elif "hi bot" in message.content.lower():
         await channel.send('Hey man {0.author.mention}'.format(message))
