@@ -91,8 +91,9 @@ async def on_message(message):
     elif message.content.startswith("/doge"):
         api_url="http://shibe.online/api/shibes?count=1"
         response=await fetch_data(api_url)
+        print(message.channel.recipient.name)
         embed=discord.Embed(
-            title=f"doge for {message.name}",
+            title=f"doge for {message.channel.recipient.name}",
         )
         embed.set_image(url=f"{response[0]}")
         await channel.send(embed=embed)
