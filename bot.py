@@ -8,10 +8,10 @@ import json
 import re
 import sys
 import time
-import aiohttp
 import time
 import calendar
 import requests
+from customdefs import *
 # custom tools imports
 from tools.bleach import get_bleach
 
@@ -21,55 +21,13 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 client = discord.Client()
 
 
-async def fetch_data(url):
-    async with aiohttp.ClientSession() as cs:
-        async with cs.get(url) as r:
-            return await r.json()
-
-
-def nonblank_lines(f):
-    for l in f:
-        line = l.rstrip()
-        if line:
-            yield line
-
-
-def sf2utcms(sf):
-    return ((sf >> 22) + 1288834974657)
-
 
 @client.event
 async def on_ready():
-    sys.stdout.flush()
-    """
-    This function will start once the bot is ready, using the client.event decorator
-    and the on_ready() function. 
-    It will display information about the bot itself, the server and the programmer
-    """
-    title = '''
-     _  _     ___    __  .______    _______   __       _______.  ______   ______   .______       _______  .______     ______   .___________.
-| || |   |__ \  |  | |   _  \  |       \ |  |     /       | /      | /  __  \  |   _  \     |       \ |   _  \   /  __  \  |           |
-| || |_     ) | |  | |  |_)  | |  .--.  ||  |    |   (----`|  ,----'|  |  |  | |  |_)  |    |  .--.  ||  |_)  | |  |  |  | `---|  |----`
-|__   _|   / /  |  | |   ___/  |  |  |  ||  |     \   \    |  |     |  |  |  | |      /     |  |  |  ||   _  <  |  |  |  |     |  |     
-   | |    / /_  |  | |  |      |  '--'  ||  | .----)   |   |  `----.|  `--'  | |  |\  \----.|  '--'  ||  |_)  | |  `--'  |     |  |     
-   |_|   |____| |__| | _|      |_______/ |__| |_______/     \______| \______/  | _| `._____||_______/ |______/   \______/      |__|     
-                                                                                                                                        
-    '''
-
-    # bot log in information
-    print('\nLogged in as {}, id: {} | Servers: {} | Users: {}'.format(client.user.name,
-                                                                       client.user.id,
-                                                                       len(client.guilds),
-                                                                       len(set(client.get_all_members()))) + ' users')    # bot python information
-    print('\nDiscord.py version: {}'.format(discord.__version__))
-    # liks
-    INVITE = 'PUT HERE THE LINK TO INVITE THE BOT'
-    print('\nUse this link to invite {}:'.format(client.user.name))
-    print(INVITE)
-    REPO = 'https://github.com/sonuishaq67/42ipdiscordbot'
-    print('\nGitHub repository: {}'.format(str(REPO)))
-    # Setting `Listening ` status
-    await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=f"{len(set(client.get_all_members()))} people"))
+    x=random.randint(0,2)
+    status=getstatus()
+    activity=discord.Activity(type=gettype(x),name=getname(x))
+    await client.change_presence(status=status,activity=activity)
 
 
 @client.event
@@ -89,9 +47,9 @@ async def on_message(message):
         await channel.send('For now only 4-5 tasks {0.author.mention}'.format(message))
 
     elif message.content.startswith("/doge"):
-        api_url="http://shibe.online/api/shibes?count=1"
-        response=await fetch_data(api_url)
-        embed=discord.Embed(
+        api_url = "http://shibe.online/api/shibes?count=1"
+        response = await fetch_data(api_url)
+        embed = discord.Embed(
             title=f"doge for {message.author}",
         )
         embed.set_image(url=f"{response[0]}")
