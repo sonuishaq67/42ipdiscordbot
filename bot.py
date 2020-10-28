@@ -21,13 +21,12 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 client = discord.Client()
 
 
-
 @client.event
 async def on_ready():
-    x=random.randint(0,2)
-    status=getstatus()
-    activity=discord.Activity(type=gettype(x),name=getname(x))
-    await client.change_presence(status=status,activity=activity)
+    x = random.randint(0, 2)
+    status = getstatus()
+    activity = discord.Activity(type=gettype(x), name=getname(x))
+    await client.change_presence(status=status, activity=activity)
 
 
 @client.event
@@ -115,13 +114,18 @@ async def on_message(message):
                 await channel.send(f'{line}')
     elif "r! meme" in message.content.lower():
         subreds = ["memes", "dankmemes", "programmerhumor", "boneappletea", "funny",
-                   "cursedcomments", "linuxmemes", "interestingasfuck", "murderedbywords"]
+                   "interestingasfuck", "murderedbywords"]
         n = subreds[random.randint(0, len(subreds)-1)]
         # get the meme
         meme = await fetch_data(f"https://meme-api.herokuapp.com/gimme/{n}")
         print(meme)
-        await channel.send(f'**{str(meme["title"])}** from *{str(meme["subreddit"])}*')
-        await channel.send(f'{str(meme["url"])}')
+        embed = discord.Embed(
+            title=f'{str(meme["title"])}',
+        )
+        embed.url=str(meme["postLink"])
+        embed.set_image(url=f'{str(meme["url"])}')
+        embed.set_author(name=f'u/{str(meme["author"])} on {str(meme["subreddit"])}')
+        await channel.send(embed=embed)
 
 if __name__ == '__main__':
     sys.stdout.flush()
