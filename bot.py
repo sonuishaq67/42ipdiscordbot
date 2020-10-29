@@ -57,12 +57,12 @@ async def on_message(message):
             await channel.send(f"Latency: {latutc-msutc} ms.")
         elif sentmsg.startswith("cringe"):
             # open the bleach.txt file
-            await channel.send(url=f"{get_bleach('bleach.txt')}")
+            await channel.send(f"{get_bleach('bleach.txt')}")
 
         elif sentmsg.startswith("hey"):
-            listhey = ["Hey {message.author.mention}", "What's up {message.author.mention}",
-                       "Whomst has summoned the almighty one\nOh it's you {message.author.mention}"]
-            await channel.send(listhey[random.randint(0, len(listhey)-1)])
+            listhey = [f"Hey {message.author.mention}", f"What's up {message.author.mention}",
+                       f"Whomst has summoned the almighty one\nOh it's you {message.author.mention}"]
+            await channel.send(f"{listhey[random.randint(0, len(listhey)-1)]}")
         elif sentmsg.startswith("twss"):
             await channel.send(file=discord.File(f'assets/twss{random.randint(0, 1)}.gif'))
 
