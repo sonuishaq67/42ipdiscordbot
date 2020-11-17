@@ -1,4 +1,4 @@
-# 42ipdiscordbot
+# 42ipdiscordbot [ARCHIVED]
 Bot using python
 
 setting up 
